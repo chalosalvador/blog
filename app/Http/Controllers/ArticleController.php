@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        return new ArticleCollection(Article::paginate(25));
+        return new ArticleCollection(Article::paginate(10));
     }
 
     public function show(Article $article)
