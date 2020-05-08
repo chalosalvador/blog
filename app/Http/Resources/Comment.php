@@ -17,7 +17,7 @@ class Comment extends JsonResource
         return [
             'id' => $this->id,
             'text' => $this->text,
-            'user' => '/api/users/' . User::find($this->user_id),
+            'user' => '/api/users/' . $this->user_id,
             'article' => "/api/articles/" . $this->article_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
