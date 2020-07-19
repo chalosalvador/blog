@@ -19,16 +19,18 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('category_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->timestamps();
-        });
+        Schema::create('category_user',
+            function (Blueprint $table) {
+                $table->unsignedBigInteger('category_id');
+                $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+                $table->timestamps();
+            });
 
         Schema::table('articles', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
+
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
         });
     }

@@ -14,8 +14,8 @@ class AddUserableColumnsUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('userable_id')->nullable();
-            $table->string('userable_type')->nullable();
+            $table->integer('userable_id');
+            $table->string('userable_type');
         });
     }
 
