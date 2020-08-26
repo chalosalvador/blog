@@ -9,7 +9,7 @@ class Comment extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -18,6 +18,7 @@ class Comment extends JsonResource
             'id' => $this->id,
             'text' => $this->text,
             'user' => '/api/users/' . $this->user_id,
+            'user_data' => $this->user,
             'article' => "/api/articles/" . $this->article_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

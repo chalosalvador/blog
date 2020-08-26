@@ -11,7 +11,7 @@ class Article extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -21,7 +21,9 @@ class Article extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'user' => "/api/users/" . $this->user_id,
+            'user_data' => $this->user,
             'category' => "/api/categories/" . $this->category_id,
+            'category_data' => $this->category,
             'image' => $this->image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
