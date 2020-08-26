@@ -12,4 +12,9 @@ class Category extends Model
     {
         return $this->belongsToMany('App\User')->as('subscriptions')->withTimestamps();
     }
+
+    public function articles()
+    {
+        return $this->hasMany('App\Article');
+    }
 }
