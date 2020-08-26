@@ -15,11 +15,11 @@ class CommentController extends Controller
      * Display a listing of the resource.
      *
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Article $article)
     {
-        return response()->json(CommentResource::collection($article->comments), 200);
+        return response()->json(CommentResource::collection($article->comments->sortByDesc('created_at')), 200);
     }
 
     /**
@@ -27,7 +27,7 @@ class CommentController extends Controller
      *
      * @param Article $article
      * @param \App\Comment $comment
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Article $article, Comment $comment)
     {
@@ -40,7 +40,7 @@ class CommentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, Article $article)
     {
