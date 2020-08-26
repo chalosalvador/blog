@@ -18,7 +18,8 @@ class ArticleController extends Controller
     public function index()
     {
 //        $this->authorize('viewAny', Article::class);
-        return new ArticleCollection(Article::paginate(10));
+//        return new ArticleCollection(Article::paginate(10));
+        return new ArticleCollection(Article::all()->sortByDesc('created_at'));
     }
 
     public function show(Article $article)
@@ -27,7 +28,8 @@ class ArticleController extends Controller
         return response()->json(new ArticleResource($article), 200);
     }
 
-    public function image(Article $article) {
+    public function image(Article $article)
+    {
         return response()->download(public_path(Storage::url($article->image)), $article->title);
     }
 
@@ -48,7 +50,7 @@ class ArticleController extends Controller
         $path = $request->image->store('public/articles');
 //        $path = $request->image->storeAs('public/articles', $request->user()->id . '_' . $article->title . '.' . $request->image->extension());
 
-        $article->image = $path;
+        $article->image = 'articles/' . basename($path);
         $article->save();
 
         return response()->json(new ArticleResource($article), 201);
@@ -59,7 +61,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
         $request->validate([
-            'title' => 'required|string|unique:articles,title,'.$article->id.'|max:255',
+            'title' => 'required|string|unique:articles,title,' . $article->id . '|max:255',
             'body' => 'required',
             'category_id' => 'required|exists:categories,id'
         ], self::$messages);
