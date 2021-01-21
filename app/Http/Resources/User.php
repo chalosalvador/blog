@@ -35,7 +35,7 @@ class User extends JsonResource
             $this->merge($this->userable),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'token' => $this->when($this->token, $this->token)
+            'token' => $this->when($this->token, $this->token),
         ];
     }
 

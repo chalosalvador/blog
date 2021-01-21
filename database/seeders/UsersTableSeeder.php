@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Admin;
 use App\Category;
 use App\User;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class UsersTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */

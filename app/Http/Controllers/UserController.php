@@ -46,21 +46,27 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'editorial' => 'required|string',
             'short_bio' => 'required|string',
+            'role' => 'required'
         ]);
 
-        $writer = Writer::create([
-            'editorial' => $request->get('editorial'),
-            'short_bio' => $request->get('short_bio'),
-        ]);
+        if ($request->role == User::ROLE_USER) {
 
-        $writer->user()->create([
+            $userable = Writer::create([
+                'editorial' => $request->get('editorial'),
+                'short_bio' => $request->get('short_bio'),
+            ]);
+        } else {
+            $userable = Admin::create([
+                'credential_number' => $request->get('credential_number'),
+            ]);
+        }
+
+        $user = $userable->user()->create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),]);
 
-        $user = $writer->user;
-
-        $token = JWTAuth::fromUser($writer->user);
+        $token = JWTAuth::fromUser($user);
 
         return response()->json(new UserResource($user, $token), 201);
     }

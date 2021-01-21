@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Article;
 use App\Comment;
 use App\User;
@@ -9,7 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class CommentsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
@@ -20,10 +22,10 @@ class CommentsTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Obtenemos todos los artículos de la bdd
-        $articles = App\Article::all();
+        $articles = \App\Article::all();
 
         // Obtenemos todos los usuarios
-        $users = App\User::all();
+        $users = \App\User::all();
         foreach ($users as $user) {
             // iniciamos sesión con cada uno
             JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Article;
 use App\User;
 use Illuminate\Database\Seeder;
@@ -8,7 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class ArticlesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
@@ -21,7 +23,7 @@ class ArticlesTableSeeder extends Seeder
         // Obtenemos la lista de todos los usuarios creados e
         // iteramos sobre cada uno y simulamos un inicio de
         // sesión con cada uno para crear artículos en su nombre
-        $users = App\User::all();
+        $users = \App\User::all();
         $image_name = $faker->image('public/storage/articles', 400, 300, null, false);
 
         foreach ($users as $user) {
