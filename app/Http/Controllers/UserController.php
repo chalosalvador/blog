@@ -7,6 +7,7 @@ use App\User;
 use App\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
@@ -108,10 +109,12 @@ class UserController extends Controller
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
 
+//            Cookie::queue(Cookie::forget('token'));
+            $cookie = Cookie::forget('token');
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)->withoutCookie('token', '/');
+            ], 200)->withCookie($cookie);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
