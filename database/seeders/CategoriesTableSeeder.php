@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Category;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -16,7 +17,7 @@ class CategoriesTableSeeder extends Seeder
     {
         // Vaciamos la tabla categories
         Category::truncate();
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
 
         for ($i = 0; $i < 3; $i++) {
             Category::create([
