@@ -114,7 +114,7 @@ class UserController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)->withoutCookie($cookie);
+            ], 200)->withCookie($cookie);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
