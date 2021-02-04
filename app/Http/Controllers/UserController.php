@@ -34,7 +34,12 @@ class UserController extends Controller
                 'token',
                 $token,
                 config('jwt.ttl'),
-                '/api'
+                '/',
+                null,
+                true,
+                true,
+                false,
+                'None'
             );
     }
 
@@ -73,7 +78,7 @@ class UserController extends Controller
                 'token',
                 $token,
                 config('jwt.ttl'),
-                '/api'
+                '/'
             );
     }
 
