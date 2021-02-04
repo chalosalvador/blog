@@ -111,10 +111,11 @@ class UserController extends Controller
 
 //            Cookie::queue(Cookie::forget('token'));
             $cookie = Cookie::forget('token');
+            $cookie->sameSite = 'None';
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)->withCookie('token', null, $sameSite='None');
+            ], 200)->withCookie($cookie);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
