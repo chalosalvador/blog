@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\User;
 use App\Writer;
 use Illuminate\Http\Request;
@@ -28,14 +29,13 @@ class UserController extends Controller
         }
         $user = JWTAuth::user();
 
-        return response()->json(compact('token', 'user'));
-        // for httpOnly cookie
-        //->withCookie(
-        //                'token',
-        //                auth()->getToken()->get(),
-        //                config('jwt.ttl'),
-        //                '/'
-        //            );
+        return response()->json(compact('token', 'user'))
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'),
+                '/'
+            );
     }
 
     public function register(Request $request)
@@ -68,7 +68,13 @@ class UserController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(new UserResource($user, $token), 201);
+        return response()->json(new UserResource($user, $token), 201)
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'),
+                '/'
+            );
     }
 
     public function getAuthenticatedUser()
