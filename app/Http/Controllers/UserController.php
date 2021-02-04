@@ -7,10 +7,10 @@ use App\User;
 use App\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
+use Symfony\Component\HttpFoundation\Cookie;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Resources\User as UserResource;
 use Tymon\JWTAuth\JWTGuard;
@@ -111,7 +111,7 @@ class UserController extends Controller
 
 //            Cookie::queue(Cookie::forget('token'));
             $cookie = Cookie::forget('token');
-            $cookie->sameSite = 'None';
+            $cookie->withSameSite('None');
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
