@@ -110,12 +110,19 @@ class UserController extends Controller
             JWTAuth::invalidate(JWTAuth::getToken());
 
 //            Cookie::queue(Cookie::forget('token'));
-            $cookie = Cookie::forget('token');
-            $cookie->withSameSite('None');
+//            $cookie = Cookie::forget('token');
+//            $cookie->withSameSite('None');
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)->withCookie($cookie);
+            ], 200)->withCookie('token', null,
+                config('jwt.ttl'),
+                '/',
+                null,
+                true,
+                true,
+                false,
+                'None');
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
