@@ -37,7 +37,7 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        return $user->isGranted(User::ROLE_USER);
+        return true;//$user->isGranted(User::ROLE_USER);
     }
 
     /**

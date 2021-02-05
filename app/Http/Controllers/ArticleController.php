@@ -24,7 +24,7 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        $this->authorize('view', $article);
+        //$this->authorize('view', $article);
         return response()->json(new ArticleResource($article), 200);
     }
 
