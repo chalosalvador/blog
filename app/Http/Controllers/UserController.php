@@ -37,10 +37,10 @@ class UserController extends Controller
                 config('jwt.ttl'),
                 '/',
                 null,
-                true,
+                config('app.env') !== 'local',
                 true,
                 false,
-                'None'
+                config('app.env') !== 'local' ? 'None' : 'Lax'
             );
     }
 
@@ -81,10 +81,10 @@ class UserController extends Controller
                 config('jwt.ttl'),
                 '/',
                 null,
-                true,
+                config('app.env') !== 'local',
                 true,
                 false,
-                'None'
+                config('app.env') !== 'local' ? 'None' : 'Lax'
             );
     }
 
@@ -119,10 +119,11 @@ class UserController extends Controller
                 config('jwt.ttl'),
                 '/',
                 null,
-                true,
+                config('app.env') !== 'local',
                 true,
                 false,
-                'None');
+                config('app.env') !== 'local' ? 'None' : 'Lax'
+            );
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
