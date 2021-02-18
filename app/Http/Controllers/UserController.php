@@ -34,13 +34,13 @@ class UserController extends Controller
             ->withCookie(
                 'token',
                 $token,
-                config('jwt.ttl'),
-                '/',
-                null,
-                config('app.env') !== 'local',
-                true,
-                false,
-                config('app.env') !== 'local' ? 'None' : 'Lax'
+                config('jwt.ttl'), // ttl => time to live
+                '/', // path
+                null, // domain
+                config('app.env') !== 'local', // Secure
+                true, // httpOnly
+                false, //
+                config('app.env') !== 'local' ? 'None' : 'Lax' // SameSite
             );
     }
 
@@ -115,7 +115,8 @@ class UserController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)->withCookie('token', null,
+            ], 200)
+                ->withCookie('token', null,
                 config('jwt.ttl'),
                 '/',
                 null,

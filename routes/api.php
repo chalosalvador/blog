@@ -24,7 +24,6 @@ Route::post('login', 'UserController@authenticate');
 Route::get('articles', 'ArticleController@index');
 Route::get('categories', 'CategoryController@index');
 
-    Route::get('articles/{article}', 'ArticleController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('/user/categories', 'CategoryController@categoriesByUser');
@@ -34,6 +33,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('articles/{article}/image', 'ArticleController@image');
 
     // Articles
+    Route::get('articles/{article}', 'ArticleController@show');
     Route::post('articles', 'ArticleController@store');
     Route::put('articles/{article}', 'ArticleController@update');
     Route::delete('articles/{article}', 'ArticleController@delete');
