@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Resources\CategoryCollection;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -18,6 +20,14 @@ class CategoryController extends Controller
         return new CategoryCollection(Category::all());
 
     }
+
+    public function categoriesByUser()
+    {
+        $user = Auth::user();
+        return new CategoryCollection($user->categories);
+    }
+
+
 
 //    /**
 //     * Store a newly created resource in storage.

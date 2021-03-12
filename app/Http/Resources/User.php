@@ -2,11 +2,17 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
-class User extends JsonResource
+class User extends JsonResource implements CanResetPasswordInterface
 {
+
+    use Notifiable;
+    use CanResetPassword;
 
     protected $token;
 
@@ -35,8 +41,7 @@ class User extends JsonResource
             $this->merge($this->userable),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'token' => $this->when($this->token, $this->token)
+            'token' => $this->when($this->token, $this->token),
         ];
     }
-
 }
